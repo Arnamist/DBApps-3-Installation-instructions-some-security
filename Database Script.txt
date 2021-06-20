@@ -60,3 +60,7 @@ CREATE TABLE item_needed
   FOREIGN KEY (product_id) REFERENCES Product(product_id)
 );
 
+INSERT INTO Employee DATA ("Eden", 1, "Basic", "Eden@gmail.com", 98303933, "Earth");
+INSERT INTO Employee DATA ("Adam", 2, "Basic", "Adam@gmail.com", 98303923, "Earth");
+INSERT INTO Employee DATA ("Eve", 3, "Basic", "EVe@gmail.com", 98303223, "Earth");
+
