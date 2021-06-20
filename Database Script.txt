@@ -1,0 +1,62 @@
+CREATE TABLE Employee
+(
+  e_name VARCHAR(150) NOT NULL,
+  employee_id INT NOT NULL,
+  positon VARCHAR(150) NOT NULL,
+  e_email VARCHAR(150) NOT NULL,
+  e_phoneno NUMERIC NOT NULL,
+  e_address VARCHAR(150) NOT NULL,
+  PRIMARY KEY (employee_id)
+);
+
+CREATE TABLE Product
+(
+  p_name VARCHAR(150) NOT NULL,
+  product_id INT NOT NULL,
+  price FLOAT NOT NULL,
+  source VARCHAR(150) NOT NULL,
+  stock_duration DATE NOT NULL,
+  stock INT NOT NULL,
+  PRIMARY KEY (product_id)
+);
+
+CREATE TABLE client
+(
+  c_name VARCHAR(150) NOT NULL,
+  c_id INT NOT NULL,
+  c_email VARCHAR(150) NOT NULL,
+  c_phoneno INT NOT NULL,
+  c_address VARCHAR(150) NOT NULL,
+  PRIMARY KEY (c_id)
+);
+
+CREATE TABLE Orders
+(
+  quantity INT NOT NULL,
+  d_date DATE NOT NULL,
+  o_name VARCHAR(150) NOT NULL,
+  order_id INT NOT NULL,
+  c_id INT NOT NULL,
+  PRIMARY KEY (order_id),
+  FOREIGN KEY (c_id) REFERENCES client(c_id)
+);
+
+CREATE TABLE assigned_to
+(
+  team CHAR(50) NOT NULL,
+  employee_id INT NOT NULL,
+  order_id INT NOT NULL,
+  PRIMARY KEY (employee_id, order_id),
+  FOREIGN KEY (employee_id) REFERENCES Employee(employee_id),
+  FOREIGN KEY (order_id) REFERENCES Orders(order_id)
+);
+
+CREATE TABLE item_needed
+(
+  order_id INT NOT NULL,
+  product_id INT NOT NULL,
+  PRIMARY KEY (order_id, product_id),
+  FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+  FOREIGN KEY (product_id) REFERENCES Product(product_id)
+);
+
