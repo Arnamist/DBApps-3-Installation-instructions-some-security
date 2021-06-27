@@ -127,25 +127,27 @@ function add_value() {
           </table></div>
     </form>";
   display_default();
-  
-  require('cvar.php');
-  //get the submitted input
-  $name = $_POST["Name"];
-  $pos = $_POST["Position"];
-  $email = $_POST["Email"];
-  $no = $_POST["Number"];
-  $add = $_POST["Address"];
-  if ( ($name == "") || ($pos == "") || ($email == "") || ($add == "") || (!is_numeric($no)) ) { die("Invalid Input"); }
-  $emp = new Employee(-1, $name, $pos, $email, $no, $add);
-  $emp->store($conn);
-  
 }
 
 $page = $_SERVER['QUERY_STRING'];
 if ($page == "") { echo "<h3>Press the options menu to navigate</h3>"; }
 if ($page == "page0") { display_default(); }
 if ($page == "page1") { search(); }
-if ($page == "page2") { add_value(); }
+if ($page == "page2") { 
+  add_value(); 
+  if (isset($_POST['page_add'])) {
+    require('cvar.php');
+    //get the submitted input
+    $name = $_POST["Name"];
+    $pos = $_POST["Position"];
+    $email = $_POST["Email"];
+    $no = $_POST["Number"];
+    $add = $_POST["Address"];
+    if ( ($name == "") || ($pos == "") || ($email == "") || ($add == "") || (!is_numeric($no)) ) { die("Invalid Input"); }
+    $emp = new Employee(-1, $name, $pos, $email, $no, $add);
+    $emp->store($conn);
+  }
+}
 if ($page == "page3") { echo 'In progess'; }
 
 $conn->close();
