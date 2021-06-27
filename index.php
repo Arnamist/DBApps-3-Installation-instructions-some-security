@@ -75,7 +75,7 @@ class Employee {
   public $no;
   public $address;
   function __construct($e_id, $e_name, $pos, $email, $no, $add) {
-      $this->employee_id = $e_id;
+      $this->e_id = $e_id;
       $this->e_name = $e_name;
       $this->positon = $pos;
       $this->e_email = $email;
@@ -83,15 +83,19 @@ class Employee {
       $this->e_address = $add;
   }
   function store($conn) {
+    require("cvar.php");
       $myid = $this->e_id;
+      echo $myid;
       if ($myid < 0) {
+        // Error around here!
          $result = $conn->query("select max(employee_id) from employee");
+         echo $result;
          while ($row = $result->fetch_array()) { $myid = $row[0] + 1; }
          $stmt = $conn->prepare("insert into employee values(?,?,?,?,?,?)");
          $bind = $stmt->bind_param("sisi", $this->e_name, $myid, $this->positon, $this->e_email, $this->e_phoneno, $this->e_address);
          if (!$bind) { die($stmt->error); }
          if (!$stmt->execute()) { die($stmt->error); }
-      } else { //untested
+      } else {
          $stmt = $conn->prepare("update employee set e_name=?, positon=?, e_email=?, e_phoneno=?, e_address=? where employee_id=?");
          $bind = $stmt->bind_param("sssis", $this->e_name, $this->positon, $this->e_email, $this->e_phoneno, $this->e_address);
          if (!$bind) { die($stmt->error); }
@@ -136,7 +140,7 @@ if ($page == "page1") { search(); }
 if ($page == "page2") { 
   add_value(); 
   if (isset($_POST['page_add'])) {
-    require('cvar.php');
+    
     //get the submitted input
     $name = $_POST["Name"];
     $pos = $_POST["Position"];
@@ -144,13 +148,15 @@ if ($page == "page2") {
     $no = $_POST["Number"];
     $add = $_POST["Address"];
     if ( ($name == "") || ($pos == "") || ($email == "") || ($add == "") || (!is_numeric($no)) ) { die("Invalid Input"); }
+    require('cvar.php');
     $emp = new Employee(-1, $name, $pos, $email, $no, $add);
     $emp->store($conn);
+    $conn->close();
   }
 }
 if ($page == "page3") { echo 'In progess'; }
 
-$conn->close();
+
 ?>
 
 
