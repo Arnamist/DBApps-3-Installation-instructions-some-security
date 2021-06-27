@@ -88,7 +88,6 @@ class Employee {
       if ($myid < 0) {
          $result = $conn->query("select max(employee_id) from employee");
          while ($row = $result->fetch_array()) { $myid = $row[0] + 1; }
-         echo $myid;
          $stmt = $conn->prepare("insert into employee values(?,?,?,?,?,?)");
          $bind = $stmt->bind_param("sissis", $this->e_name, $myid, $this->positon, $this->e_email, $this->e_phoneno, $this->e_address);
          if (!$bind) { die($stmt->error); }
@@ -128,6 +127,19 @@ function add_value() {
           </tr>
           </table></div>
     </form>";
+    if (isset($_POST['page_add'])) {
+      //get the submitted input
+      $name = $_POST["Name"];
+      $pos = $_POST["Position"];
+      $email = $_POST["Email"];
+      $no = $_POST["Number"];
+      $add = $_POST["Address"];
+      if ( ($name == "") || ($pos == "") || ($email == "") || ($add == "") || (!is_numeric($no)) ) { die("Invalid Input"); }
+      require('cvar.php');
+      $emp = new Employee(-1, $name, $pos, $email, $no, $add);
+      $emp->store($conn);
+      $conn->close();
+    }
   display_default();
 }
 
@@ -137,23 +149,8 @@ if ($page == "page0") { display_default(); }
 if ($page == "page1") { search(); }
 if ($page == "page2") { 
   add_value(); 
-  if (isset($_POST['page_add'])) {
-    
-    //get the submitted input
-    $name = $_POST["Name"];
-    $pos = $_POST["Position"];
-    $email = $_POST["Email"];
-    $no = $_POST["Number"];
-    $add = $_POST["Address"];
-    if ( ($name == "") || ($pos == "") || ($email == "") || ($add == "") || (!is_numeric($no)) ) { die("Invalid Input"); }
-    require('cvar.php');
-    $emp = new Employee(-1, $name, $pos, $email, $no, $add);
-    $emp->store($conn);
-    $conn->close();
-  }
 }
 if ($page == "page3") { echo 'In progess'; }
-
 ?>
 
 </body></html>
