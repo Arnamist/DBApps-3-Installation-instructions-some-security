@@ -85,14 +85,12 @@ class Employee {
   function store($conn) {
     require("cvar.php");
       $myid = $this->e_id;
-      echo $myid;
       if ($myid < 0) {
-        // Error around here!
          $result = $conn->query("select max(employee_id) from employee");
-         echo $result;
          while ($row = $result->fetch_array()) { $myid = $row[0] + 1; }
+         echo $myid;
          $stmt = $conn->prepare("insert into employee values(?,?,?,?,?,?)");
-         $bind = $stmt->bind_param("sisi", $this->e_name, $myid, $this->positon, $this->e_email, $this->e_phoneno, $this->e_address);
+         $bind = $stmt->bind_param("sissis", $this->e_name, $myid, $this->positon, $this->e_email, $this->e_phoneno, $this->e_address);
          if (!$bind) { die($stmt->error); }
          if (!$stmt->execute()) { die($stmt->error); }
       } else {
@@ -156,9 +154,6 @@ if ($page == "page2") {
 }
 if ($page == "page3") { echo 'In progess'; }
 
-
 ?>
-
-
 
 </body></html>
