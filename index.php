@@ -104,7 +104,7 @@ class Employee {
 function add_value() {
    echo "<h3>Add Employee:</h3>";
     echo
-    "<form action='index.php?page2'  method='post'>
+    "<form  method='post'>
         <input type='hidden' name='page_add' value='add_value'/>
           <div class='container'> <table class='table table-bordered'>
           <tr>
@@ -127,18 +127,18 @@ function add_value() {
           </table></div>
     </form>";
   display_default();
-  if (isset($_POST['page_add'])){
-    require('connect.php');
-    //get the submitted input
-    $name = $_POST["Name"];
-    $pos = $_POST["Position"];
-    $email = $_POST["Email"];
-    $no = $_POST["Number"];
-    $add = $_POST["Address"];
-    if ( ($name == "") || ($pos == "") || ($email == "") || ($add == "") || (!is_numeric($no)) ) { die("Invalid Input"); }
-    $emp = new Employee(-1, $name, $pos, $email, $no, $add);
-    $emp->store($conn);
-  }
+  
+  require('cvar.php');
+  //get the submitted input
+  $name = $_POST["Name"];
+  $pos = $_POST["Position"];
+  $email = $_POST["Email"];
+  $no = $_POST["Number"];
+  $add = $_POST["Address"];
+  if ( ($name == "") || ($pos == "") || ($email == "") || ($add == "") || (!is_numeric($no)) ) { die("Invalid Input"); }
+  $emp = new Employee(-1, $name, $pos, $email, $no, $add);
+  $emp->store($conn);
+  
 }
 
 $page = $_SERVER['QUERY_STRING'];
