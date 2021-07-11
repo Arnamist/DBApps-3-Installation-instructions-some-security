@@ -12,4 +12,6 @@ After extracting the code from the git directory, change the following informati
 $dbhost = "localhost";
 $dbuser = "root";
 $dbpass = "mysql";
-$dbname = "foods"; 
+$dbname = "food";
+
+Run the datascript.txt in your database to generate database.
