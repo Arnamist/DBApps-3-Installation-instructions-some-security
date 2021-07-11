@@ -15,12 +15,11 @@ CREATE TABLE Product
   product_id INT NOT NULL,
   price FLOAT NOT NULL,
   source VARCHAR(150) NOT NULL,
-  stock_duration DATE NOT NULL,
   stock INT NOT NULL,
   PRIMARY KEY (product_id)
 );
 
-CREATE TABLE client
+CREATE TABLE Client
 (
   c_name VARCHAR(150) NOT NULL,
   c_id INT NOT NULL,
@@ -33,12 +32,11 @@ CREATE TABLE client
 CREATE TABLE Orders
 (
   quantity INT NOT NULL,
-  d_date DATE NOT NULL,
   o_name VARCHAR(150) NOT NULL,
   order_id INT NOT NULL,
   c_id INT NOT NULL,
   PRIMARY KEY (order_id),
-  FOREIGN KEY (c_id) REFERENCES client(c_id)
+  FOREIGN KEY (c_id) REFERENCES Client(c_id)
 );
 
 CREATE TABLE assigned_to
@@ -60,7 +58,17 @@ CREATE TABLE item_needed
   FOREIGN KEY (product_id) REFERENCES Product(product_id)
 );
 
-INSERT INTO Employee DATA ("Eden", 1, "Basic", "Eden@gmail.com", 98303933, "Earth");
-INSERT INTO Employee DATA ("Adam", 2, "Basic", "Adam@gmail.com", 98303923, "Earth");
-INSERT INTO Employee DATA ("Eve", 3, "Basic", "EVe@gmail.com", 98303223, "Earth");
+INSERT INTO Employee VALUES ("Eden", 1, "Basic", "Eden@gmail.com", 98303933, "Earth");
+INSERT INTO Employee VALUES ("Adam", 2, "Basic", "Adam@gmail.com", 98303923, "Earth");
+INSERT INTO Employee VALUES ("Eve", 3, "Basic", "EVe@gmail.com", 98303223, "Earth");
+
+INSERT INTO Client VALUES ("Jerry", 10, "Jerry@gmail.com", 18301133, "Earth");
+INSERT INTO Client VALUES ("Rick", 11, "Rick@gmail.com", 91303935, "Earth");
+INSERT INTO Client VALUES ("Beth", 13, "Beth@gmail.com", 9343953, "Earth");
+
+INSERT INTO Orders VALUES ( 105, "Chicken Parma", 190, 10);
+INSERT INTO Orders VALUES ( 100, "Beef Salad", 200, 11);
+
+INSERT INTO Product VALUES ("chichen", 113, 180, "Basic", 20);
+INSERT INTO Product VALUES ("Mutton", 123, 115, "Basic", 98);
 
