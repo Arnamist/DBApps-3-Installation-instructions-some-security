@@ -14,4 +14,4 @@ $dbuser = "root";
 $dbpass = "mysql";
 $dbname = "food";
 
-Run the datascript.txt in your database to generate database.
+Run the 'Database Script.txt' in your database to generate database.
