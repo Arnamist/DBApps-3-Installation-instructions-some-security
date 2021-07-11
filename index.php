@@ -18,7 +18,7 @@
       <li><a href="?page0">Home</a></li>
       <li><a href="?page1">Search Database</a></li>
       <li><a href="?page2">Add Value</a></li>
-      <li><a href="?page3">In Progress</a></li>
+      <li><a href="https://github.com/Arnamist/DBApps-3-Installation-instructions-some-security/wiki">Help</a></li>
     </ul>
   </div>
 </nav>
@@ -144,13 +144,12 @@ function add_value() {
 }
 
 $page = $_SERVER['QUERY_STRING'];
-if ($page == "") { echo "<h3>Press the options menu to navigate</h3>"; }
+if ($page == "") { echo "<h3>Press the above options in the menu to navigate.</h3>"; echo "<h3>Click on help for more information.</h3>";  }
 if ($page == "page0") { display_default(); }
 if ($page == "page1") { search(); }
 if ($page == "page2") { 
   add_value(); 
 }
-if ($page == "page3") { echo 'In progess'; }
 ?>
 
 </body></html>
